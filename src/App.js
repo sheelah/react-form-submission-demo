@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import FeedbackForm from './components/FeedbackForm';
+import PropTypes from 'prop-types';
 
 class App extends Component {
   render() {
@@ -16,5 +17,9 @@ class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  env: PropTypes.object.isRequired
+};
 
 export default App;
