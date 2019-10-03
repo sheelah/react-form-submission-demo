@@ -30,14 +30,16 @@ export default class FeedbackForm extends Component {
 
     const {
       REACT_APP_EMAILJS_RECEIVER: receiverEmail,
-      REACT_APP_EMAILJS_TEMPLATEID: template
+      REACT_APP_EMAILJS_TEMPLATEID: template,
+      REACT_APP_EMAILJS_USERID: user,
     } = this.props.env;
 
     this.sendFeedback(
       template,
       this.sender,
       receiverEmail,
-      this.state.feedback
+      this.state.feedback,
+      user
     );
 
     this.setState({
@@ -45,13 +47,15 @@ export default class FeedbackForm extends Component {
     });
   }
 
-  sendFeedback(templateId, senderEmail, receiverEmail, feedback) {
+  sendFeedback(templateId, senderEmail, receiverEmail, feedback, user) {
     window.emailjs
       .send('mailgun', templateId, {
-        senderEmail,
-        receiverEmail,
-        feedback
-      })
+          senderEmail,
+          receiverEmail,
+          feedback
+        },
+        user
+      )
       .then(res => {
         this.setState({
           formEmailSent: true
