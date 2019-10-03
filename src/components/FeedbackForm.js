@@ -47,9 +47,11 @@ export default class FeedbackForm extends Component {
     });
   }
 
+ // Note: this is using default_service, which will map to whatever
+ // default email provider you've set in your EmailJS account.
   sendFeedback(templateId, senderEmail, receiverEmail, feedback, user) {
     window.emailjs
-      .send('mailgun', templateId, {
+      .send('default_service', templateId, {
           senderEmail,
           receiverEmail,
           feedback
