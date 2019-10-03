@@ -30,14 +30,16 @@ export default class FeedbackForm extends Component {
 
     const {
       REACT_APP_EMAILJS_RECEIVER: receiverEmail,
-      REACT_APP_EMAILJS_TEMPLATEID: template
+      REACT_APP_EMAILJS_TEMPLATEID: template,
+      REACT_APP_EMAILJS_USERID: user,
     } = this.props.env;
 
     this.sendFeedback(
       template,
       this.sender,
       receiverEmail,
-      this.state.feedback
+      this.state.feedback,
+      user
     );
 
     this.setState({
@@ -45,13 +47,17 @@ export default class FeedbackForm extends Component {
     });
   }
 
-  sendFeedback(templateId, senderEmail, receiverEmail, feedback) {
+ // Note: this is using default_service, which will map to whatever
+ // default email provider you've set in your EmailJS account.
+  sendFeedback(templateId, senderEmail, receiverEmail, feedback, user) {
     window.emailjs
-      .send('mailgun', templateId, {
-        senderEmail,
-        receiverEmail,
-        feedback
-      })
+      .send('default_service', templateId, {
+          senderEmail,
+          receiverEmail,
+          feedback
+        },
+        user
+      )
       .then(res => {
         this.setState({
           formEmailSent: true
