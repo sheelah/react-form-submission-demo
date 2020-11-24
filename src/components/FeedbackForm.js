@@ -6,7 +6,7 @@ const FeedbackForm = ({ env }) => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formSubmitSuccessful, setFormSubmitSuccessful] = useState(false);
 
-  const sender = 'sender@example.com';
+  const senderEmail = 'sender@example.com';
 
   const handleCancel = () => {
     setFeedback('');
@@ -21,13 +21,13 @@ const FeedbackForm = ({ env }) => {
 
     const {
       REACT_APP_EMAILJS_RECEIVER: receiverEmail,
-      REACT_APP_EMAILJS_TEMPLATEID: template,
+      REACT_APP_EMAILJS_TEMPLATEID: templateId,
       REACT_APP_EMAILJS_USERID: user,
     } = env;
 
     sendFeedback({
-      templateId: template,
-      senderEmail: sender,
+      templateId,
+      senderEmail,
       receiverEmail,
       feedback,
       user,
